@@ -1,9 +1,5 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> | 
-    <router-link :to="{name: 'ToDoList'}">Todo List</router-link>
-  </div>
+  <h1>To Do List</h1>
   <router-view/>
 </template>
 
@@ -13,19 +9,17 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #517090;
 }
 
-#nav {
-  padding: 30px;
+ body {
+	 font-family: 'Poppins', sans-serif;
+	 display: flex;
+	 flex-direction: column;
+	 align-items: center;
+	 min-height: 100vh;
+	 font-size: 1.5rem;
+	 background-color: #222;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
