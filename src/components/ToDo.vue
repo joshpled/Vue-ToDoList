@@ -1,6 +1,6 @@
 <template>
   <div class="item hvr-grow" ref="todo" @click="completeTodo">
-    {{ text }}<i class="far fa-times-circle deleteTodo" v-if="isCrossed"></i>
+    {{ text }}<i class="far fa-times-circle deleteTodo" v-if="isCrossed" @click="emit('deleteTodo')"></i>
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 import { ref } from "vue";
 export default {
   props: ["text"],
-  setup(props) {
+  setup(props, {emit}) {
     let text = ref(props.text);
     let todo = ref(null);
     let isCrossed = ref(false);
@@ -18,7 +18,7 @@ export default {
       todo.value.classList.add("crossed");
     };
    
-    return { text, todo, completeTodo, isCrossed };
+    return { text, todo, completeTodo, isCrossed, emit };
   },
 };
 </script>

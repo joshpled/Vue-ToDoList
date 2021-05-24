@@ -22,7 +22,11 @@ setup(){
 		todo.value=''
     }
 
-    return{ todo, todos, addToDo}
+	const deleteTodo = (e) => {
+		console.log('something is deleted')
+	}
+
+    return{ todo, todos, addToDo, deleteTodo}
 }
 }
 </script>
