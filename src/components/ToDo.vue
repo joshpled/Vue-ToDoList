@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 export default {
-  props: ["text"],
+  props: ["text","done"],
   emits: ["deleteTodo"],
   setup(props) {
     console.log9;
@@ -27,6 +27,12 @@ export default {
         todo.value.classList.add("crossed");
       }
     };
+    onMounted(() => {
+      if(props.done === true){
+        isCrossed.value = true
+        todo.value.classList.add("crossed");
+      }
+    })
 
     return { text, todo, toggleTodo, isCrossed };
   },

@@ -1,7 +1,14 @@
 <template>
   <h1>To Do List</h1>
-  <router-view/>
+  <ToDoList />
 </template>
+
+<script>
+import ToDoList from './views/ToDoList.vue'
+export default {
+  components: {ToDoList}
+}
+</script>
 
 <style>
 #app {
@@ -23,3 +30,5 @@
 }
 
 </style>
+
+vue

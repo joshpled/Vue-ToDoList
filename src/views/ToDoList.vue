@@ -10,9 +10,22 @@
     <label for="addToDo" class="form__label">Add To Do</label>
   </div>
   <div class="list" v-for="todo in todos" :key="todo">
-    <ToDo :text="todo"  @deleteTodo="deleteTodo"/>
+    <ToDo :text="todo" :done="false" @deleteTodo="deleteTodo" />
   </div>
-	<div v-if="!todos.length">Add a Todo!</div>
+  <div v-if="!todos.length">
+    Add a Todo!
+  </div>
+  <div v-if="oldTodos.length">
+    <button @click="toggleOldTodos" class="btn-default btn">
+      <span v-if="!openOld">Show Deleted</span><span v-else>Hide Deleted</span>
+    </button>
+    <hr v-show="openOld">
+    <div v-show="openOld">
+      <div v-for="todo in oldTodos" :key="todo">
+        <ToDo :text="todo" :done="true" @removeFromOld="removeFromOld" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -22,20 +35,30 @@ export default {
   components: { ToDo },
   setup() {
     let todo = ref(null);
-    let todos = ref(["one todo", "two todo"]);
+    let todos = ref([]);
+    let oldTodos = ref([]);
+    let openOld = ref(false);
 
     const addToDo = (e) => {
       todos.value.push(todo.value);
       todo.value = "";
     };
 
-    return { todo, todos, addToDo };
+    const toggleOldTodos = () => {
+      openOld.value = !openOld.value;
+    };
+
+    return { todo, todos, addToDo, oldTodos, toggleOldTodos, openOld };
   },
-  methods:{
-	  deleteTodo(text){
-		this.todos = this.todos.filter(word => word != text)
-	  }
-  }
+  methods: {
+    deleteTodo(text) {
+      this.todos = this.todos.filter((word) => word != text);
+      this.oldTodos.push(text);
+    },
+    removeFromOld(text) {
+      console.log(text);
+    },
+  },
 };
 </script>
 
@@ -95,4 +118,44 @@ export default {
 .form__field:invalid {
   box-shadow: none;
 }
+.delete-todos-title{
+
+}
+.btn {
+    font-size: 14px;
+    padding: 6px 12px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+}
+
+/* default
+---------------------------- */
+.btn-default {
+    color: #333;
+    font-size: 16px;
+    background-color: rgb(78, 163, 208);
+    border-color: rgb(78, 163, 208);
+    border-radius: 5px;
+}
+.btn-default:hover {
+    color: #333;
+    background-color: rgb(134, 182, 208);
+    border-color: rgb(134, 182, 208);
+}
+
 </style>
