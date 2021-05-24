@@ -2,17 +2,16 @@
   <div class="item hvr-grow" ref="todo" @click="toggleTodo">
     {{ text }}
   </div>
-  <div
-    @click="removeTodo(e, text)"
-    class="far fa-times-circle close-button"
-    v-if="isCrossed"
-  ></div>
+  <div @click="$emit('deleteTodo', text)" v-if="isCrossed" class="close-button">
+    <span class="far fa-times-circle" />
+  </div>
 </template>
 
 <script>
 import { ref } from "vue";
 export default {
   props: ["text"],
+  emits: ["deleteTodo"],
   setup(props) {
     console.log9;
     let text = ref(props.text);
@@ -20,21 +19,16 @@ export default {
     let isCrossed = ref(false);
 
     const toggleTodo = () => {
-      isCrossed.value = !isCrossed.value;
-      if (isCrossed.value) {
-        todo.value.classList.add("crossed");
-      } else {
+      if (isCrossed.value === true) {
+        isCrossed.value = false;
         todo.value.classList.remove("crossed");
+      } else {
+        isCrossed.value = true;
+        todo.value.classList.add("crossed");
       }
     };
 
     return { text, todo, toggleTodo, isCrossed };
-  },
-  methods: {
-    removeTodo(e, text) {
-      console.log(text);
-      this.$emit("removeTodo");
-    },
   },
 };
 </script>
