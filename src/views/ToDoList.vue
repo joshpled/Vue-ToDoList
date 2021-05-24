@@ -1,10 +1,10 @@
 <template>
 <div class="form__group field">
-  <input type="input" class="form__field" id='addToDo' @keyup.enter="addToDo" v-model="todo" />
+  <input type="input" class="form__field" id='addToDo' @keyup.enter="addToDo" v-model="todo"/>
   <label for="addToDo" class="form__label">Add To Do</label>
 </div>
   <div class="list" v-for="todo in todos" :key="todo">
-     <ToDo :text="todo" />
+     <ToDo :text="todo"  />
   </div>
 </template>
 
@@ -23,10 +23,10 @@ setup(){
     }
 
 	const deleteTodo = (e) => {
-		console.log('something is deleted')
+		return todos.value.filter(word => word != todo)
 	}
 
-    return{ todo, todos, addToDo, deleteTodo}
+    return{ todo, todos, addToDo}
 }
 }
 </script>

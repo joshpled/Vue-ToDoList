@@ -1,24 +1,40 @@
 <template>
-  <div class="item hvr-grow" ref="todo" @click="completeTodo">
-    {{ text }}<i class="far fa-times-circle deleteTodo" v-if="isCrossed" @click="emit('deleteTodo')"></i>
+  <div class="item hvr-grow" ref="todo" @click="toggleTodo">
+    {{ text }}
   </div>
+  <div
+    @click="removeTodo(e, text)"
+    class="far fa-times-circle close-button"
+    v-if="isCrossed"
+  ></div>
 </template>
 
 <script>
 import { ref } from "vue";
 export default {
   props: ["text"],
-  setup(props, {emit}) {
+  setup(props) {
+    console.log9;
     let text = ref(props.text);
     let todo = ref(null);
     let isCrossed = ref(false);
 
-    const completeTodo = () => {
-      isCrossed.value = true;
-      todo.value.classList.add("crossed");
+    const toggleTodo = () => {
+      isCrossed.value = !isCrossed.value;
+      if (isCrossed.value) {
+        todo.value.classList.add("crossed");
+      } else {
+        todo.value.classList.remove("crossed");
+      }
     };
-   
-    return { text, todo, completeTodo, isCrossed, emit };
+
+    return { text, todo, toggleTodo, isCrossed };
+  },
+  methods: {
+    removeTodo(e, text) {
+      console.log(text);
+      this.$emit("removeTodo");
+    },
   },
 };
 </script>
@@ -28,17 +44,19 @@ export default {
   background: #55efc4;
   border-radius: 10px;
   width: fit-content;
-  display: inline-block;
   margin: 5px auto;
   padding: 10px;
   cursor: pointer;
+  display: inline-block;
 }
 .crossed {
   text-decoration: line-through;
   background: grey;
 }
-.deleteTodo {
+.close-button {
+  display: inline-block;
   color: rgb(223, 107, 107);
-  margin-left: 20px;
+  margin-left: 10px;
+  cursor: pointer;
 }
 </style>
