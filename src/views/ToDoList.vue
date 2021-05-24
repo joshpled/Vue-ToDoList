@@ -12,6 +12,7 @@
   <div class="list" v-for="todo in todos" :key="todo">
     <ToDo :text="todo"  @deleteTodo="deleteTodo"/>
   </div>
+	<div v-if="!todos.length">Add a Todo!</div>
 </template>
 
 <script>
