@@ -2,7 +2,7 @@
   <div class="item hvr-grow" ref="todo" @click="toggleTodo">
     {{ text }}
   </div>
-  <div @click="$emit('deleteTodo', text)" v-if="isCrossed" class="close-button">
+  <div @click.once="$emit('deleteTodo', text)" v-if="isCrossed" class="close-button">
     <span class="far fa-times-circle" />
   </div>
 </template>

@@ -12,17 +12,15 @@
   <div class="list" v-for="todo in todos" :key="todo">
     <ToDo :text="todo" :done="false" @deleteTodo="deleteTodo" />
   </div>
-  <div v-if="!todos.length">
-    Add a Todo!
-  </div>
+  <div v-if="!todos.length">Add a Todo!</div>
   <div v-if="oldTodos.length">
     <button @click="toggleOldTodos" class="btn-default btn">
       <span v-if="!openOld">Show Deleted</span><span v-else>Hide Deleted</span>
     </button>
-    <hr v-show="openOld">
+    <hr v-show="openOld" />
     <div v-show="openOld">
       <div v-for="todo in oldTodos" :key="todo">
-        <ToDo :text="todo" :done="true"/>
+        <ToDo :text="todo" :done="true" @deleteTodo="deleteTodo" />
       </div>
     </div>
   </div>
@@ -52,8 +50,13 @@ export default {
   },
   methods: {
     deleteTodo(text) {
-      this.todos = this.todos.filter((word) => word != text);
-      this.oldTodos.push(text);
+      if (this.todos.includes(text)) {
+        this.todos = this.todos.filter((word) => word != text);
+        this.oldTodos.push(text);
+      } else {
+        this.oldTodos = this.oldTodos.filter((word) => word != text);
+        this.todos.push(text);
+      }
     },
   },
 };
