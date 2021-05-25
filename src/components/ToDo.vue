@@ -1,8 +1,8 @@
 <template>
-  <div class="item hvr-grow" ref="todo" @click="toggleTodo">
+  <div class="item hvr-grow animate__animated animate__bounceIn" ref="todo" @click="toggleTodo">
     {{ text }}
   </div>
-  <div @click.once="$emit('deleteTodo', text)" v-if="isCrossed" class="close-button">
+  <div @click.once="$emit('deleteTodo', text)" v-if="isCrossed" class="close-button animate__animated animate__zoomIn animate__faster">
     <span class="far fa-times-circle" />
   </div>
 </template>
