@@ -9,11 +9,12 @@
 
 <script>
 import { onMounted, ref } from "vue";
+
 export default {
-  props: ["text","done"],
+  props: ["text", "done"],
   emits: ["deleteTodo"],
+
   setup(props) {
-    console.log9;
     let text = ref(props.text);
     let todo = ref(null);
     let isCrossed = ref(false);
@@ -27,12 +28,13 @@ export default {
         todo.value.classList.add("crossed");
       }
     };
+
     onMounted(() => {
-      if(props.done === true){
-        isCrossed.value = true
+      if (props.done === true) {
+        isCrossed.value = true;
         todo.value.classList.add("crossed");
       }
-    })
+    });
 
     return { text, todo, toggleTodo, isCrossed };
   },
